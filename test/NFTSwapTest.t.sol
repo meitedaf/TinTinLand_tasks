@@ -48,8 +48,8 @@ contract NFTSwapTest is Test {
         uint256 tokenIdA = 1;
         uint256 price = 1 ether;
 
-        address seller = address(0x1234); // 使用一个普通地址作为卖家
-        address buyer = address(0x5678); // 使用一个普通地址作为买家
+        address seller = address(0x1234); 
+        address buyer = address(0x5678); 
 
         nftA.mint(seller, tokenIdA);
 
@@ -58,19 +58,16 @@ contract NFTSwapTest is Test {
         nftSwap.list(address(nftA), tokenIdA, price);
         vm.stopPrank();
 
-        // 检查列表是否创建成功
         (address listedSeller, uint256 listedPrice) = nftSwap.orders(address(nftA), tokenIdA);
         assertEq(listedSeller, seller);
         assertEq(listedPrice, price);
 
-        // 检查NFT的当前所有者
         assertEq(nftA.ownerOf(tokenIdA), seller);
 
         vm.deal(buyer, price);
         vm.prank(buyer);
         nftSwap.purchase{value: price}(address(nftA), tokenIdA);
 
-        // 检查购买后的状态
         assertEq(nftA.ownerOf(tokenIdA), buyer);
         assertEq(seller.balance, price);
 
