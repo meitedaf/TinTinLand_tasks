@@ -48,8 +48,8 @@ contract NFTSwapTest is Test {
         uint256 tokenIdA = 1;
         uint256 price = 1 ether;
 
-        address seller = address(0x1234); 
-        address buyer = address(0x5678); 
+        address seller = address(0x1234);
+        address buyer = address(0x5678);
 
         nftA.mint(seller, tokenIdA);
 
